@@ -17,7 +17,6 @@ from sklearn.ensemble import RandomForestRegressor
 train_raw = pd.read_csv(r'Train (1).csv',low_memory=False)
 test = pd.read_csv(r'Test.csv',low_memory= False)
 train_raw.head()
-#%%
 
 def MULTIREG(x,y):
     """Multivariate coefficient determination
@@ -42,16 +41,14 @@ def MULTIREG(x,y):
     AtA_mat = np.matrix(AtA) # converting to matrix
     AtA_inv = (AtA_mat.I) # calculating inverse
     b = np.array([y.values]).T # transposing the B matrix
-    #.T is the transpose feature
     Atb = np.matmul(At,b)
     Atb_mat = np.matrix(Atb) # converting to matrix
     Res = np.matmul(AtA_inv,Atb_mat)
     return Res
     
-#%%
 def rmse(x,y):
     return math.sqrt(((x-y)**2).mean())
-#%%
+
 def predict(x,coeffs):
     A_val = pd.DataFrame(x)
     one =[]
@@ -65,7 +62,6 @@ def predict(x,coeffs):
     Res = res.tolist()
     return Res
     
-#%%
 features = []
 for i in range(1,6):
     features.append("feature_"+str(i))
@@ -73,9 +69,7 @@ features
 y = train_raw['target']
 train = train_raw[features]
 print(train)
-y
 
-#%%
 x_train =train[:1300]
 x_valid =train[1300:]
 y_train =y[:1300]
@@ -86,11 +80,10 @@ y_valid =y[1300:]
 ''' y_train represents my b vector.
  x_train is the matrix A.
  '''
-(x_train)
-#%%
+
 model = MULTIREG(x_train,y_train)
 #print(type(model))
-#%%
+
 preds_train= predict(x_train,model)
 preds_valid= predict(x_valid,model)
 pred_trn_list=[]
